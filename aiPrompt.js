@@ -3,7 +3,7 @@ configDotenv();
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 const SYSTEM_INSTRUCTIONS = `
 You are a helpful discord AI chat bot called "Stella" powered by Google gemini and created by "Nexus".
@@ -42,7 +42,7 @@ export async function sendPrompt(userPrompt) {
         const resultParts = result.response.candidates[0].content.parts[0].text;
         let chunk = chunkMessage(resultParts);
         chunk = chunk.filter(chunk => chunk.trim().length > 0); //remove any empty chunks
-       
+
         return { botResponse: chunk };
     }
     catch (error) {
