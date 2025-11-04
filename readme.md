@@ -1,13 +1,12 @@
 # Stella
 
-#### Stella is a Discord AI chatbot powered by Google Gemini. It can generate text, answer questions, and assist with coding.
+Stella is a friendly Discord AI chatbot powered by Google Gemini. It can chat, answer questions, and assist with coding or server tasks.
+Built on Google's Gemini 2.5 Flash Lite model, Stella delivers fast and intelligent responses to enhance your Discord experience.
 
-#### Stella leverages Google's Gemini 1.5 Flash-8B model to process requests and provide intelligent responses.
-
-#### 🚀 [Invite Stella](https://invite-stella.vercel.app/) to your server !
+[![Static Badge](https://img.shields.io/badge/Invite%20Stella-%235865F2?style=for-the-badge&logo=discord&logoColor=white)](https://invite-stella.vercel.app/)
 
 ## ✨ Features
-- AI-Powered Responses : Generates text and answers questions using Google Gemini 1.5 Flash-8B.
+- AI-Powered Responses : Generates text and answers questions using Google Gemini 2.5 Flash Lite.
 
 - Code Assistance : Helps with coding, debugging, and explaining programming concepts.
 
@@ -20,7 +19,7 @@
 - Lightweight & Fast : Built for quick responses with minimal resource usage.
 
 ## 📦 Installation
-#### Want to run Stella locally ? 
+#### Want to run Stella locally ?
 Here's what you'll need and how to do it.
 
 - Get a ***Gemini API Key*** : [Click Here](https://ai.google.dev/gemini-api/docs/api-key?authuser=1) to get your own Gemini API Key.
@@ -33,7 +32,7 @@ Here's what you'll need and how to do it.
 
 **Clone the Repository :**
 ```bash
-git clone https://github.com/nexus949/Stella
+git clone https://github.com/NexusWasLost/Stella
 ```
 
 **Install the dependencies :**
@@ -46,7 +45,7 @@ npm install
 BOT_TOKEN = your-bot-Token
 CLIENT_ID = your-client-id
 GEMINI_API_KEY = your-gemini-api-key
-``` 
+```
 
 **Register the commands :**
 ```bash

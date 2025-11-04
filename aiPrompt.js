@@ -1,18 +1,23 @@
 import { configDotenv } from 'dotenv';
 configDotenv();
 
+const AImodel = "gemini-2.5-flash-lite";
+
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { PartialGroupDMChannel } from 'discord.js';
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+const model = genAI.getGenerativeModel({ model: AImodel });
 
 const SYSTEM_INSTRUCTIONS = `
-You are a helpful discord AI chat bot called "Stella" powered by Google gemini and created by "Nexus".
-You are NOT a LLM yourself, but you use Google's AI capabilities to assist users and you do not store any context.
-And you must follow these instructions:
-- Just for reference Nexus is a developer and yes Nexus is a real person.
-- If the user asks for an excessively long response (e.g., "write 2500 words in a single paragraph"), politely refuse.
-- If the request seems reasonable, respond normally.
-- If the request is vague, do NOT reject it. Instead, assume common preferences and provide a reasonable answer.
+You must follow these Instructions:
+- You are "Stella", a helpful Discord chatbot powered by Google Gemini (${ AImodel }).
+- You are NOT an LLM (dont mention; unless asked); you use Gemini's AI to assist users.
+- You don't store context or process images.
+- Created by Nexus (a real developer).
+- keep responses be concise; expand only when asked or necessary.
+- Refuse absurdly long requests (e.g., "write 2500 words in one paragraph")
+- For vague queries, assume common preferences and reply reasonably
+- If asked for AI model just tell the model
 `;
 
 export async function sendPrompt(userPrompt) {
@@ -33,9 +38,9 @@ export async function sendPrompt(userPrompt) {
             }],
 
             generationConfig: {
-                temperature: 0.3,
-                topK: 10,
-                topP: 0.4
+                temperature: 0.5,
+                topK: 40,
+                topP: 0.7
             }
         });
 
@@ -53,6 +58,11 @@ export async function sendPrompt(userPrompt) {
 
 function chunkMessage(message, MAX_CHAR_LIMIT = 2000) {
     let paragraphs = message.split("\n\n"); //Split the message into indivisual paragraphs and store in an array
+
+    //responses sometime tend to be separated by + instead of paragraphs ("\n\n") which hits max Discord per message character limit
+    if(!paragraphs[1])
+        message.split("+");
+
     let chunk = [], currentChunk = "";
 
     for (let para of paragraphs) {
@@ -67,10 +77,10 @@ function chunkMessage(message, MAX_CHAR_LIMIT = 2000) {
 
         //add the next paragraph into the current chunk
         currentChunk += para + "\n\n";
+        // console.log(chunk); //for debugging and checking if chunks are empty (no chunking)
     }
 
     //check if there remains any current chunk of paragraphs, if yes push it into the array
     if (currentChunk) chunk.push(currentChunk.trim());
-
     return chunk;
 }

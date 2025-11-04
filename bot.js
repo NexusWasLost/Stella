@@ -25,6 +25,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
       await interaction.deferReply();
 
       const prompt = interaction.options._hoistedOptions[0].value;   //to understand this do -> console.log(interaction.options)
+
       const response = await sendPrompt(prompt);
 
       await interaction.editReply(response.botResponse[0]);
@@ -39,7 +40,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
       if (interaction.replied || interaction.deferred) {
         await interaction.editReply("❌ Uh-oh, that failed. Try one more time!");
-      } 
+      }
       else {
         await interaction.reply("❌ Uh-oh, that failed. Try one more time!");
       }
